@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>html5扫雷</title>
+	<script type="text/javascript" src="mine.js"></script>
+	<link rel="Stylesheet" type="text/css" href="mine.css" />
+</head>
+<body>
+
+	<div class = "mine-wrap">
+		<div class = "title clearfix">
+			<div class="title-txt">扫雷</div>
+			<ul class="window-control">
+				<li class="window-min"></li>
+				<li class="window-max"></li>
+				<li class="window-close" onclick="window.close()"></li>
+			</ul>
+		</div>
+		<div class="mine-main clearfix">
+			<div class="mine-menu clearfix">
+				<ul class="mine-menu-ul clearfix">
+					<li class="menu-game">游戏
+						<ul class="menu-sub clearfix">
+							<li><span class="menu-sub-left"><input type="radio" name="mine-type"value ="0"></span><span class="menu-sub-right">初级</span></li>
+							<li><span class="menu-sub-left"><input type="radio" name="mine-type" value ="1"></span><span class="menu-sub-right">中级</span></li>
+							<li><span class="menu-sub-left"><input type="radio" name="mine-type" value ="2"></span><span class="menu-sub-right">高级</span></li>
+							<li><span class="menu-sub-left"><input type="radio" name="mine-type" value ="3"></span><span class="menu-sub-right">自定义</span></li>
+
+						</ul>
+					</li>
+					<li>帮助</li>
+				</ul>
+			</div>
+			<div class="mine-con">
+				<div class="game-tags clearfix">
+					<div class="game-tag-images">
+						<img src="res/d0.bmp">
+						<img src="res/d0.bmp">
+						<img src="res/d0.bmp">
+					</div>
+					<div class="game-face">
+						<img src="res/face_normal.bmp" onclick = "mine1.init()" id="face">
+					</div>
+					<div class="game-time-images">
+						<img src="res/d0.bmp">
+						<img src="res/d0.bmp">
+						<img src="res/d0.bmp">
+					</div>
+				</div>
+				<div class="mine-canvas">
+					<canvas id="mine1" width="" height=""></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 预加载图片资源 -->
+	<div class ="load-images">
+		<img src ="res/blank.bmp" >
+		<img src ="res/0.bmp" >
+		<img src ="res/flag.bmp" >
+		<img src ="res/ask.bmp" >
+		<img src ="res/mine.bmp" >
+		<img src ="res/blood.bmp" >
+		<img src ="res/error.bmp" >
+		<img src ="res/0.bmp" >
+		<img src ="res/1.bmp" >
+		<img src ="res/2.bmp" >
+		<img src ="res/3.bmp" >
+		<img src ="res/4.bmp" >
+		<img src ="res/5.bmp" >
+		<img src ="res/6.bmp" >
+		<img src ="res/7.bmp" >
+		<img src ="res/8.bmp" >
+	</div>
+
+	<div class="about">
+		<a href="http://blog.csdn.net/liusaint1992/article/details/50531186" target="_blank">简要说明</a>
+	</div>
+
+	<script>
+	var mine1;
+	window.onload = function(){
+
+		document.getElementsByClassName('mine-wrap')[0].style.display = "block";
+		
+		mine1 = new Mine("mine1",'face',30,16,99,"game-tag-images","game-time-images");
+		mine1.init();
+
+		var inputEle = document.getElementsByTagName('input');
+
+		for (var i = 0; i < inputEle.length; i++) {
+			inputEle[i].onclick = function(){
+				var width,height,minenum;
+				if(this.value == 0){
+					width =9;height =9;minenum = 10;
+				}
+				else if(this.value == 1){
+					width =16;height =16;minenum = 40;
+				}
+				else if(this.value == 2){
+					width =30;height =16;minenum = 99;
+				}else if(this.value ==3){
+					width =prompt("请输入宽(9-30)");
+					height = width && prompt("请输入高(9-24)");
+					minenum = height && prompt("请输入雷的数量(10-200)");
+					if(!(width && height && minenum)){
+						return;
+					}
+					if(width<9){width = 9;}
+					if(width>30){width = 30;}
+					if(height<9){height = 9;}
+					if(height>24){height = 24;}
+					if(minenum<10){minenum = 10;}
+					if(minenum>200){minenum = 200;}
+					if(minenum>height * width){minenum =10;}
+				}
+				mine1.paneheight = height;//有几行
+				mine1.panewidth = width;//有几列
+				mine1.minenum = minenum;//有几个雷
+
+				mine1.init();
+				document.getElementsByClassName("mine-wrap")[0].style.width = width * mine1.PANE_SIZE + 25 + "px";
+			}
+		};
+
+	}
+
+	</script>
+</body>

@@ -1,0 +1,225 @@
+		.mine-wrap{
+			/*height: 375px;*/
+			display: none;
+			width: 505px;
+			border:1px solid #ccc;
+			border-radius: 5px;
+			box-shadow:0 0 12px 1px black;
+			margin: 100px auto;
+			/*background: */
+			padding: 8px;
+
+
+		}
+		.title{
+			font-weight: 100;
+		}
+		.title-txt{
+			background: url(res/mine.ico);
+			background-size: 15px 15px;
+			background-repeat: no-repeat;
+			background-position: center left;
+			line-height: 30px;
+			font-size: 14px;
+			font-family: "宋体";
+			text-indent: 20px;
+			font-weight: 100;
+			margin-left: 6px;
+			width: 55px;
+			float: left;
+			margin-top: -8px;
+		}
+		ul,li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.window-control{
+			float: right;
+			width: 100px;
+			border-bottom-left-radius:5px;
+			border-bottom-right-radius:5px;
+			border:1px solid #ccc;
+			border-top: none;
+			margin-right: 5px;
+			text-align: center;
+			margin-top: -8px;
+			height: 18px;
+		}
+		.window-control li{
+			float: left;
+		}
+		.window-min{
+			width: 27px;
+			height: 18px;
+			background-image: url(res/window_min.bmp);
+			border-bottom-left-radius:5px; 
+		}
+		.window-min:hover{
+			box-shadow: 0 0 12px 1px green;
+		}
+		.window-max{
+			width: 27px;
+			height: 18px;
+			background-image: url(res/window_max.bmp);
+		}
+		.window-max:hover{
+			box-shadow: 0 0 12px 1px green;
+		}
+		.window-close{
+			width: 46px;
+			height: 18px;
+			background: red;
+			color: white;
+			background-image: url(res/window_close.bmp);
+			border-bottom-right-radius:5px; 
+		}
+		.window-close:hover{
+			box-shadow: 0 0 12px 1px red;
+		}
+		.mine-main{
+			border: 1px solid #ccc;
+		}
+		.clearfix:after{
+			content:"";
+			display:table;
+			clear:both;
+		}
+		.mine-menu{
+			line-height: 20px;
+			font-size: 12px;
+			font-weight: 100;
+			border-bottom: 1px solid #ccc;
+		}
+		.mine-menu-ul{
+			padding: 1px 0;
+			background-image: url(res/menu_bg.bmp);	
+		}
+		.mine-menu-ul>li{
+			float: left;
+			width: 40px;
+			text-align: center;
+			height: 16px;	
+			line-height: 16px;
+			margin-right: 5px;	
+
+		}
+		.mine-menu-ul>li:hover{
+			border:1px solid #ccc;
+			border-radius: 5px;
+			height: 14px;
+			width: 38px;
+			line-height: 14px;
+		}
+		.mr5{
+			margin-right: 5px;
+		}
+		.mine-con{
+			background: #c0c0c0;
+			padding: 7px;
+			border-left: 2px solid #fff;
+			border-top: 2px solid #fff;
+		}
+		.game-tags{
+			border:2px solid #808080;
+			border-right-color: #fff;
+			border-bottom-color: #fff;
+			/*height: 34px;*/
+			padding: 5px 6px;
+			text-align: center;
+			position: relative;
+			margin-bottom: 8px;
+		}
+		.game-time-images,.game-tag-images{
+			width: 39px;
+			height: 23px;
+		}
+		.game-time-images img,.game-tag-images img{
+			float: left;
+		}
+		.game-time-images{
+			float: right;
+		}
+		.game-tag-images{
+			float: left;
+		}
+		.game-face{
+			border:2px solid #808080;
+			border-left-color: #fff;
+			border-top-color: #fff;
+			height: 20px;
+			width: 20px;
+			position: absolute;
+			left: 50%;
+			top:50%;
+			margin-left: -12px;
+			margin-top: -12px;
+		}
+		.game-face:active{
+			border-top:2px solid #808080;
+			border-bottom:1px solid #808080; 
+			border-right:1px solid #808080; 
+			border-left:2px solid #808080;
+		}
+		.mine-canvas{
+			border:3px solid #808080;
+			border-right-color: #fff;
+			border-bottom-color: #fff;
+		}
+		.menu-game{
+			position: relative;
+		}
+
+		.menu-sub{
+			width: 185px;
+			background: #eee;
+			position: relative;
+			left: 0;
+			top: 0px;
+			z-index: 1;
+			line-height: 30px;
+			display: none;
+			text-align: left;
+			padding: 2px;
+		}
+		.menu-sub li{
+			line-height: 30px;
+			/*text-indent: 5px;*/
+		}
+		.menu-game:hover .menu-sub{
+			display: block;
+
+		}
+		.menu-sub-left{
+			display: inline-block;
+			height: 30px;
+			width: 30px;
+			border-right:1px solid #ccc;
+			float: left;
+			text-align: center;
+		}
+		.menu-sub-left input[type=radio]{
+			margin: 0;
+			vertical-align: middle;
+		}
+		.menu-sub li:hover{
+			border:1px solid green;
+			border-radius: 2px;
+			height: 28px;
+			line-height: 28px;
+			/*text-indent: 1px;*/
+		}
+		.menu-sub li:hover .menu-sub-left{
+			height: 28px;
+			margin-left: -1px;
+		}
+		.menu-sub-right{
+			border-left: 1px solid #fff;
+			display: inline-block;
+			height: 30px;
+			text-indent: 5px;
+
+		}
+		.load-images{
+			display: none;
+		}
