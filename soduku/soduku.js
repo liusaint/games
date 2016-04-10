@@ -4,7 +4,6 @@
 * date:2016年4月9日
 */
 
-
 function SD(){
 	this.sdArr = [];//生成的数独数组	
 	this.errorArr = [];//错误的格子。
@@ -189,13 +188,18 @@ SD.prototype={
 		});
 	},
 	checkRes:function(){
-		//检测用户输入结果。
-		var blankArr = this.blankArr,len = this.blankArr.length,x,y,dom,done;
+		//检测用户输入结果。检测前将输入加入数组。检测单个的时候将这一个的值缓存起来并从数组中删除，检测结束在赋值回去。
+		var blankArr = this.blankArr,len = this.blankArr.length,x,y,dom,done,temp;
+		this.getInputVals();
 		this.errorArr.length = 0;
 		for(var i =0;i<len;i++){
 			x = parseInt(blankArr[i]/10);
-			y = blankArr[i]%10;	
-			this.checkCell(x,y);			
+			y = blankArr[i]%10;
+			temp = this.backupSdArr[blankArr[i]];
+			this.backupSdArr[blankArr[i]] = undefined;
+			this.checkCell(x,y);
+			this.backupSdArr[blankArr[i]] = temp;
+
 		}
 		done = this.isAllInputed();
 		if(this.errorArr.length == 0 && done ){
@@ -221,6 +225,17 @@ SD.prototype={
 			this.errorArr.push(index);
 		}
 	},
+	getInputVals:function(){
+		//将用户输入的结果添加到数组中。
+		var blankArr = this.blankArr,len = this.blankArr.length,i,x,y,dom,theval;
+		for(i=0;i<len;i++){
+			x = parseInt(blankArr[i]/10);
+			y = blankArr[i]%10;	
+			dom = $(".sdli").eq(y-1).find(".sdspan").eq(x-1);
+			theval = parseInt(dom.text())||undefined;
+			this.backupSdArr[blankArr[i]] = theval;
+		}
+	},
 	isAllInputed:function(){
 		//检测是否全部空格都有输入。
 		var blankArr = this.blankArr,len = this.blankArr.length,i,x,y,dom;
@@ -228,7 +243,7 @@ SD.prototype={
 			x = parseInt(blankArr[i]/10);
 			y = blankArr[i]%10;	
 			dom = $(".sdli").eq(y-1).find(".sdspan").eq(x-1);
-			if(dom.html()==''){
+			if(dom.text()==''){
 				return false
 			}
 		}
