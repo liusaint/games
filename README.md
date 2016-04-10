@@ -6,4 +6,4 @@
 
 2.九宫格数独游戏。生成数独算法。2016年4月。https://github.com/liusaint/games/tree/master/soduku
 
-3.简易贪吃蛇。2016年1月。
+3.简易贪吃蛇。2016年1月。2016年1月。https://github.com/liusaint/games/tree/master/snake
