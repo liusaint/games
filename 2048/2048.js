@@ -89,13 +89,15 @@ G2048.prototype = {
 				aa:
 				while(k<4){
 					if(this.arr[i][k].value == 0){
-						if(k == 3 || this.arr[i][k+1]!=0){
-							this.arr[i][k-1].value = this.arr[i][j].value;
+						if(k == 3 || (this.arr[i][k+1].value!=0 && this.arr[i][k+1].value!=this.arr[i][j].value)){
+							this.arr[i][k].value = this.arr[i][j].value;
 							this.arr[i][j].value = 0;
-							$(".p"+i+(k-1)).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k-1)).find('.number_cell_con').html(this.arr[i][k-1].value);
+							$(".p"+i+(k)).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k)).find('.number_cell_con').html(this.arr[i][k].value);
+						
 						}
-						k++;
+	k++;
+						
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
 							this.arr[i][k].value = this.arr[i][k].value*2;
