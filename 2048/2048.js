@@ -44,16 +44,16 @@ G2048.prototype = {
 
 			switch(keyCode){
 				case 39://右
-
+				that.moveRight();
 				break;
 				case 40://下
-				that.movedown()
+				that.moveDown();
 				break;
 				case 37://左
-
+				that.moveLeft();
 				break;
 				case 38://上
-
+				that.moveUp();
 				break;
 
 				default:
@@ -77,7 +77,7 @@ G2048.prototype = {
 		this.arrValueUpdate(2,i,j);
 		this.drawCell(i,j);
 	},
-	movedown:function(){
+	moveDown:function(){
 		/*向下移动*/
 		var i,j,k;
 		for (i = 0; i < 4; i++) {
@@ -94,9 +94,9 @@ G2048.prototype = {
 							this.arr[i][j].value = 0;
 							$(".p"+i+(k)).remove();//这个写法不太好
 							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k)).find('.number_cell_con').html(this.arr[i][k].value);
-						
+
 						}
-	k++;
+						k++;
 						
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
@@ -104,25 +104,128 @@ G2048.prototype = {
 							this.arr[i][j].value = 0;
 							$(".p"+i+k).remove();//这个写法不太好
 							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+k).find('.number_cell_con').html(this.arr[i][k].value);
-						}else{
-							// this.arr[i][k-1].value = this.arr[i][j].value;
-							// this.arr[i][j].value = 0;
-							// $(".p"+i+(k-1)).remove();//这个写法不太好
-							// $(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k-1)).find('.number_cell_con').html(this.arr[i][k-1].value);
 						}
-
 						break aa;
 					}
 
 				}
-
-				console.log(k);
 			}
 		}
-		this.newCellValue();
+		this.newCellValue();//生成一个新格子。后面要对其做判断。
+	},
+	moveUp:function(){
+		/*向上移动*/
+		var i,j,k;
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				if(this.arr[i][j].value==0){					
+					continue;
+				}
+				k = j-1;
+				aa:
+				while(k>=0){
+					if(this.arr[i][k].value == 0){
+						if(k == 0 || (this.arr[i][k-1].value!=0 && this.arr[i][k-1].value!=this.arr[i][j].value)){
+							this.arr[i][k].value = this.arr[i][j].value;
+							this.arr[i][j].value = 0;
+							$(".p"+i+(k)).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k)).find('.number_cell_con').html(this.arr[i][k].value);
+
+						}
+						k--;						
+					}else{
+						if(this.arr[i][k].value == this.arr[i][j].value){
+							this.arr[i][k].value = this.arr[i][k].value*2;
+							this.arr[i][j].value = 0;
+							$(".p"+i+k).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+k).find('.number_cell_con').html(this.arr[i][k].value);
+						}
+						break aa;
+					}
+
+				}
+			}
+		}
+		this.newCellValue();//生成一个新格子。后面要对其做判断。
+	},
+	moveLeft:function(){
+		/*向左移动*/
+		var i,j,k;
+
+		for (j = 0; j < 4; j++) {
+			for (i = 0; i < 4; i++) {
+				if(this.arr[i][j].value==0){					
+					continue;
+				}
+				k=i-1;
+				aa:
+				while(k>=0){
+					if(this.arr[k][j].value == 0){
+						if(k == 0 || (this.arr[k-1][j].value!=0 && this.arr[k-1][j].value!=this.arr[i][j].value)){
+							this.arr[k][j].value = this.arr[i][j].value;
+							this.arr[i][j].value = 0;
+							$(".p"+(k)+j).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+(j)).find('.number_cell_con').html(this.arr[k][j].value);
+						}
+						k--;	
+					}else{
+
+						if(this.arr[k][j].value == this.arr[i][j].value){
+							this.arr[k][j].value = this.arr[k][j].value*2;
+							this.arr[i][j].value = 0;
+							$(".p"+k+j).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
+						}
+						break aa;
+
+					}
+				}
+			}
+		}
+		this.newCellValue();//生成一个新格子。后面要对其做判断。
+	},
+	moveRight:function(){
+		/*向右移动*/
+		var i,j,k;
+		for (j = 0; j < 4; j++) {
+			for (i = 3; i >= 0; i--) {
+				if(this.arr[i][j].value==0){					
+					continue;
+				}
+				k = i+1;
+				aa:
+				while(k<4){
+					if(this.arr[k][j].value == 0){
+
+						if(k == 3 || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
+							this.arr[k][j].value = this.arr[i][j].value;
+							this.arr[i][j].value = 0;
+							$(".p"+k+j).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
+
+						}
+						k++;
+
+
+					}else{
+
+						if(this.arr[k][j].value == this.arr[i][j].value){
+							this.arr[k][j].value = this.arr[k][j].value*2;
+							this.arr[i][j].value = 0;
+							$(".p"+k+j).remove();//这个写法不太好
+							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
+						}
+						break aa;
+
+
+					}
+				}
+			}
+		}
+
+		this.newCellValue();//生成一个新格子。后面要对其做判断。
 	}
 }
-
 
 //生成随机正整数 1到n之间。
 function getRandom(n){
