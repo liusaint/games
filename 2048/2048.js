@@ -30,7 +30,7 @@ G2048.prototype = {
 	},
 	drawCell:function(i,j){
 		/*画一个新格子*/
-		var item = '<div class="number_cell p'+i+j+'" ><div class="number_cell_con">'
+		var item = '<div class="number_cell p'+i+j+'" ><div class="number_cell_con n2">'
 		+this.arr[i][j].value+'</div> </div>';		
 		$(".g2048").append(item);
 	},
@@ -90,20 +90,13 @@ G2048.prototype = {
 				while(k<4){
 					if(this.arr[i][k].value == 0){
 						if(k == 3 || (this.arr[i][k+1].value!=0 && this.arr[i][k+1].value!=this.arr[i][j].value)){
-							this.arr[i][k].value = this.arr[i][j].value;
-							this.arr[i][j].value = 0;
-							$(".p"+i+(k)).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k)).find('.number_cell_con').html(this.arr[i][k].value);
-
+							this.moveCell(i,j,i,k);
 						}
 						k++;
 						
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
-							this.arr[i][k].value = this.arr[i][k].value*2;
-							this.arr[i][j].value = 0;
-							$(".p"+i+k).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+k).find('.number_cell_con').html(this.arr[i][k].value);
+							this.mergeCells(i,j,i,k);
 						}
 						break aa;
 					}
@@ -126,19 +119,12 @@ G2048.prototype = {
 				while(k>=0){
 					if(this.arr[i][k].value == 0){
 						if(k == 0 || (this.arr[i][k-1].value!=0 && this.arr[i][k-1].value!=this.arr[i][j].value)){
-							this.arr[i][k].value = this.arr[i][j].value;
-							this.arr[i][j].value = 0;
-							$(".p"+i+(k)).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+(k)).find('.number_cell_con').html(this.arr[i][k].value);
-
+							this.moveCell(i,j,i,k);
 						}
 						k--;						
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
-							this.arr[i][k].value = this.arr[i][k].value*2;
-							this.arr[i][j].value = 0;
-							$(".p"+i+k).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+i+k).find('.number_cell_con').html(this.arr[i][k].value);
+							this.mergeCells(i,j,i,k);
 						}
 						break aa;
 					}
@@ -162,19 +148,12 @@ G2048.prototype = {
 				while(k>=0){
 					if(this.arr[k][j].value == 0){
 						if(k == 0 || (this.arr[k-1][j].value!=0 && this.arr[k-1][j].value!=this.arr[i][j].value)){
-							this.arr[k][j].value = this.arr[i][j].value;
-							this.arr[i][j].value = 0;
-							$(".p"+(k)+j).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+(j)).find('.number_cell_con').html(this.arr[k][j].value);
+							this.moveCell(i,j,k,j);
 						}
 						k--;	
 					}else{
-
 						if(this.arr[k][j].value == this.arr[i][j].value){
-							this.arr[k][j].value = this.arr[k][j].value*2;
-							this.arr[i][j].value = 0;
-							$(".p"+k+j).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
+							this.mergeCells(i,j,k,j);
 						}
 						break aa;
 
@@ -198,22 +177,14 @@ G2048.prototype = {
 					if(this.arr[k][j].value == 0){
 
 						if(k == 3 || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
-							this.arr[k][j].value = this.arr[i][j].value;
-							this.arr[i][j].value = 0;
-							$(".p"+k+j).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
-
+							this.moveCell(i,j,k,j);
 						}
 						k++;
 
 
 					}else{
-
 						if(this.arr[k][j].value == this.arr[i][j].value){
-							this.arr[k][j].value = this.arr[k][j].value*2;
-							this.arr[i][j].value = 0;
-							$(".p"+k+j).remove();//这个写法不太好
-							$(".p"+i+j).removeClass("p"+i+j).addClass("p"+k+j).find('.number_cell_con').html(this.arr[k][j].value);
+							this.mergeCells(i,j,k,j);
 						}
 						break aa;
 
@@ -224,6 +195,20 @@ G2048.prototype = {
 		}
 
 		this.newCellValue();//生成一个新格子。后面要对其做判断。
+	},
+	mergeCells:function(i1,j1,i2,j2){
+		/*移动并合并格子*/
+		var temp =this.arr[i2][j2].value;
+		var temp1 = temp * 2;
+		this.arr[i2][j2].value = temp1;
+		this.arr[i1][j1].value = 0;
+		$(".p"+i2+j2).remove();//这个写法不太好
+		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con').html(this.arr[i2][j2].value).addClass('n'+temp1).removeClass('n'+temp);
+	},
+	moveCell:function(i1,j1,i2,j2){
+		this.arr[i2][j2].value = this.arr[i1][j1].value;
+		this.arr[i1][j1].value = 0;
+		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
 	}
 }
 

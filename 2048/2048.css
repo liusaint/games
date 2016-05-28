@@ -41,35 +41,38 @@
 
 /*颜色*/
 .n2{
-
+	background: #eee4da;
+	color: #000;
 }
 .n4{
-
+	background: #ece0c8;
+	color: #000;
 }
 .n8{
-
+	background:#f2b179;
 }
 .n16{
-
+	background:#f59563;
 }
 .n32{
-
+	background:#f57c5f;
 }
 .n64{
-
+	background:#f65d38;
 }
 .n128{
-
+	background:#edce71;
 }
 .n256{
-
+	background:#edcc61;
 }
 .n512{
-
+	background:#ecc850;
 }
 .n1024{
-
+	background:#edc631;
 }
 .n2048{
-
+	background:#edc41f;
 }
+
