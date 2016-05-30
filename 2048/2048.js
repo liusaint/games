@@ -230,7 +230,7 @@ G2048.prototype = {
 		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
 	},
 	checkLose:function(){
-		// 还有问题
+		/*判输*/
 		var i,j,temp;
 		for (i = 0; i < 4; i++) {
 			for (j = 0; j < 4; j++) {
@@ -238,15 +238,14 @@ G2048.prototype = {
 				if(temp == 0){
 					return false;
 				}
-				if(this.arr[i+1] && (this.arr[i+1][j]==temp)){
+				if(this.arr[i+1] && (this.arr[i+1][j].value==temp)){
 					return false;
 				}
-				if((this.arr[i][j+1]!=undefined) && (this.arr[i][j+1]==temp)){
+				if((this.arr[i][j+1]!=undefined) && (this.arr[i][j+1].value==temp)){
 					return false;
 				}
 			}
 		}
-		// console.log('ok');
 		return true;
 	}
 
