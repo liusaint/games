@@ -45,15 +45,19 @@ G2048.prototype = {
 			switch(keyCode){
 				case 39://右
 				that.moveRight();
+				console.log(that.checkLose());
 				break;
 				case 40://下
 				that.moveDown();
+				console.log(that.checkLose());
 				break;
 				case 37://左
 				that.moveLeft();
+				console.log(that.checkLose());
 				break;
 				case 38://上
 				that.moveUp();
+				console.log(that.checkLose());
 				break;
 
 				default:
@@ -68,14 +72,28 @@ G2048.prototype = {
 	},
 	newCellValue:function(){
 		/*在空白处掉下来一个新的格子，目前这个方法还有点慢*/
-		var i,j;
-		do{
-			i = getRandom(4);
-			j = getRandom(4);
-		}while(this.arr[i][j].value != 0)
+		var i,j,len,index;
 
-		this.arrValueUpdate(2,i,j);
-		this.drawCell(i,j);
+		var ableArr = [];
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				if(this.arr[i][j].value == 0){
+					ableArr.push([i,j]);
+				}
+			}
+		}
+		len = ableArr.length;
+		if(len > 0){
+			index = getRandom(len);
+			i = ableArr[index][0];
+			j = ableArr[index][1];
+			this.arrValueUpdate(2,i,j);
+			this.drawCell(i,j);
+		}else{
+			console.log('没有空闲的格子了！');
+			return;
+		}
+
 	},
 	moveDown:function(){
 		/*向下移动*/
@@ -206,10 +224,32 @@ G2048.prototype = {
 		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con').html(this.arr[i2][j2].value).addClass('n'+temp1).removeClass('n'+temp);
 	},
 	moveCell:function(i1,j1,i2,j2){
+		/*移动格子*/
 		this.arr[i2][j2].value = this.arr[i1][j1].value;
 		this.arr[i1][j1].value = 0;
 		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
+	},
+	checkLose:function(){
+		// 还有问题
+		var i,j,temp;
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				temp = this.arr[i][j].value;
+				if(temp == 0){
+					return false;
+				}
+				if(this.arr[i+1] && (this.arr[i+1][j]==temp)){
+					return false;
+				}
+				if((this.arr[i][j+1]!=undefined) && (this.arr[i][j+1]==temp)){
+					return false;
+				}
+			}
+		}
+		// console.log('ok');
+		return true;
 	}
+
 }
 
 //生成随机正整数 1到n之间。
@@ -221,3 +261,12 @@ function getRandom(n){
 var g = new G2048();
 g.creatArr();
 g.addEvent();
+
+
+
+// 剩下的问题：
+// 1.一次把一排加完了的问题。
+// 2.随机出现下一位的循环问题。连续按键的问题 已ok.
+// 3.某些情况下应该不能出现新的的问题。
+// 4.判输。
+// 5.样式。
