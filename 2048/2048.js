@@ -1,5 +1,6 @@
 function G2048(){
 	this.arr = [];
+	this.moveAble = false;
 
 }
 
@@ -44,23 +45,24 @@ G2048.prototype = {
 
 			switch(keyCode){
 				case 39://右
+				that.moveAble = false;
 				that.moveRight();
-				console.log(that.checkLose());
+				that.checkLose();
 				break;
 				case 40://下
+				that.moveAble = false;
 				that.moveDown();
-				console.log(that.checkLose());
+				that.checkLose();
 				break;
 				case 37://左
+				that.moveAble = false;
 				that.moveLeft();
-				console.log(that.checkLose());
+				that.checkLose();
 				break;
 				case 38://上
+				that.moveAble = false;
 				that.moveUp();
-				console.log(that.checkLose());
-				break;
-
-				default:
+				that.checkLose();
 				break;
 			}
 		}; 
@@ -73,8 +75,12 @@ G2048.prototype = {
 	newCellValue:function(){
 		/*在空白处掉下来一个新的格子，目前这个方法还有点慢*/
 		var i,j,len,index;
-
 		var ableArr = [];
+
+		if(this.moveAble != true){
+			console.log('不能增加新格子，请尝试其他方向移动！');
+			return;
+		}
 		for (i = 0; i < 4; i++) {
 			for (j = 0; j < 4; j++) {
 				if(this.arr[i][j].value == 0){
@@ -218,6 +224,7 @@ G2048.prototype = {
 		/*移动并合并格子*/
 		var temp =this.arr[i2][j2].value;
 		var temp1 = temp * 2;
+		this.moveAble = true;
 		this.arr[i2][j2].value = temp1;
 		this.arr[i1][j1].value = 0;
 		$(".p"+i2+j2).remove();//这个写法不太好
@@ -227,6 +234,7 @@ G2048.prototype = {
 		/*移动格子*/
 		this.arr[i2][j2].value = this.arr[i1][j1].value;
 		this.arr[i1][j1].value = 0;
+		this.moveAble = true;
 		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
 	},
 	checkLose:function(){
@@ -246,6 +254,7 @@ G2048.prototype = {
 				}
 			}
 		}
+		console.log('you lose!');
 		return true;
 	}
 
@@ -269,3 +278,4 @@ g.addEvent();
 // 3.某些情况下应该不能出现新的的问题。
 // 4.判输。
 // 5.样式。
+// 6.计分。
