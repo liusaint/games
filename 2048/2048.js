@@ -1,16 +1,19 @@
 function G2048(){
-	this.arr = [];
-	this.moveAble = false;
-	this.score = 0;
+	this.addEvent();
 }
 
 G2048.prototype = {
 	constructor:G2048,
 	init:function(){
-
+		this.score = 0;
+		this.arr = [];
+		this.moveAble = false;
+		$("#score").html("分数：0");
+		$(".number_cell").remove();
+		this.creatArr();
 	},
 	creatArr:function(){
-		/*生成原始数组*/
+		/*生成原始数组,随机创建前两个格子*/
 		var i,j;
 		for (i = 0; i < 4; i++) {
 			this.arr[i] = [];
@@ -38,7 +41,7 @@ G2048.prototype = {
 		$(".g2048").append(item);
 	},
 	addEvent:function(){
-		//更换移动方向。下一步的移动方向。
+		//添加事件。
 		var that = this;
 		document.onkeydown=function(event){
 			var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -75,10 +78,9 @@ G2048.prototype = {
 		this.arr[i][j].value = num;
 	},
 	newCellValue:function(){
-		/*在空白处掉下来一个新的格子，目前这个方法还有点慢*/
+		/*在空白处掉下来一个新的格子*/
 		var i,j,len,index;
 		var ableArr = [];
-
 		if(this.moveAble != true){
 			console.log('不能增加新格子，请尝试其他方向移动！');
 			return;
@@ -208,7 +210,6 @@ G2048.prototype = {
 				aa:
 				while(k<n){
 					if(this.arr[k][j].value == 0){
-
 						if(k == 3 || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,k,j);
 						}
@@ -221,8 +222,6 @@ G2048.prototype = {
 							n--;
 						}
 						break aa;
-
-
 					}
 				}
 			}
@@ -244,7 +243,11 @@ G2048.prototype = {
 			theDom.addClass('n'+temp1).removeClass('n'+temp).find('span').html(temp1);
 		},200);//200毫秒是移动耗时。
 		this.score += temp1;
-		$("#score").html("分数："+this.score);		
+		$("#score").html("分数："+this.score);	
+		if(temp1 == 2048){
+			alert('you win!');
+			this.init();
+		}	
 	},
 	moveCell:function(i1,j1,i2,j2){
 		/*移动格子*/
@@ -271,9 +274,9 @@ G2048.prototype = {
 			}
 		}
 		alert('you lose!');
+		this.init();
 		return true;
 	}
-
 }
 
 //生成随机正整数 1到n之间。
@@ -283,8 +286,8 @@ function getRandom(n){
 
 
 var g = new G2048();
-g.creatArr();
-g.addEvent();
+g.init();
+
 
 
 
