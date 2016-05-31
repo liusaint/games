@@ -1,7 +1,7 @@
 function G2048(){
 	this.arr = [];
 	this.moveAble = false;
-
+	this.score = 0;
 }
 
 G2048.prototype = {
@@ -237,8 +237,14 @@ G2048.prototype = {
 		this.moveAble = true;
 		this.arr[i2][j2].value = temp1;
 		this.arr[i1][j1].value = 0;
-		$(".p"+i2+j2).remove();//这个写法不太好
-		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con').addClass('n'+temp1).removeClass('n'+temp).find('span').html(this.arr[i2][j2].value);
+		$(".p"+i2+j2).addClass('toRemove');
+		var theDom = $(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
+		setTimeout(function(){
+			$(".toRemove").remove();//这个写法不太好
+			theDom.addClass('n'+temp1).removeClass('n'+temp).find('span').html(temp1);
+		},200);//200毫秒是移动耗时。
+		this.score += temp1;
+		$("#score").html("分数："+this.score);		
 	},
 	moveCell:function(i1,j1,i2,j2){
 		/*移动格子*/
@@ -264,7 +270,7 @@ G2048.prototype = {
 				}
 			}
 		}
-		console.log('you lose!');
+		alert('you lose!');
 		return true;
 	}
 
