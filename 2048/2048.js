@@ -22,7 +22,6 @@ G2048.prototype = {
 				this.arr[i][j].value = 0;
 			}
 		}
-
 		//随机生成前两个。并且不重复。
 		var i1,i2,j1,j2;
 		do{
@@ -109,16 +108,16 @@ G2048.prototype = {
 		/*向下移动*/
 		var i,j,k,n;
 		for (i = 0; i < 4; i++) {
-			n = 4;
+			n = 3;
 			for (j = 3; j >= 0; j--) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k = j+1;
 				aa:
-				while(k<n){
+				while(k<=n){
 					if(this.arr[i][k].value == 0){
-						if(k == 3 || (this.arr[i][k+1].value!=0 && this.arr[i][k+1].value!=this.arr[i][j].value)){
+						if(k == n || (this.arr[i][k+1].value!=0 && this.arr[i][k+1].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,i,k);
 						}
 						k++;
@@ -149,7 +148,7 @@ G2048.prototype = {
 				aa:
 				while(k>=n){
 					if(this.arr[i][k].value == 0){
-						if(k == 0 || (this.arr[i][k-1].value!=0 && this.arr[i][k-1].value!=this.arr[i][j].value)){
+						if(k == n || (this.arr[i][k-1].value!=0 && this.arr[i][k-1].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,i,k);
 						}
 						k--;						
@@ -180,7 +179,7 @@ G2048.prototype = {
 				aa:
 				while(k>=n){
 					if(this.arr[k][j].value == 0){
-						if(k == 0 || (this.arr[k-1][j].value!=0 && this.arr[k-1][j].value!=this.arr[i][j].value)){
+						if(k == n || (this.arr[k-1][j].value!=0 && this.arr[k-1][j].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,k,j);
 						}
 						k--;	
@@ -201,16 +200,16 @@ G2048.prototype = {
 		/*向右移动*/
 		var i,j,k,n;
 		for (j = 0; j < 4; j++) {
-			n = 4;
+			n = 3;
 			for (i = 3; i >= 0; i--) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k = i+1;
 				aa:
-				while(k<n){
+				while(k<=n){
 					if(this.arr[k][j].value == 0){
-						if(k == 3 || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
+						if(k == n || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,k,j);
 						}
 						k++;
@@ -279,7 +278,7 @@ G2048.prototype = {
 	}
 }
 
-//生成随机正整数 1到n之间。
+//生成随机正整数 0到n之间。
 function getRandom(n){
 	return Math.floor(Math.random()*n)
 }
