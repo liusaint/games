@@ -20,8 +20,12 @@ G2048.prototype = {
 			}
 		}
 
-		//随机生成前两个。
-		var i1=getRandom(3),i2=getRandom(3),j1=getRandom(3),j2=getRandom(3);
+		//随机生成前两个。并且不重复。
+		var i1,i2,j1,j2;
+		do{
+			i1=getRandom(3),i2=getRandom(3),j1=getRandom(3),j2=getRandom(3);
+		}while(i1==i2 && j1 == j2);
+
 		this.arrValueUpdate(2,i1,j1);
 		this.arrValueUpdate(2,i2,j2);
 		this.drawCell(i1,j1);
