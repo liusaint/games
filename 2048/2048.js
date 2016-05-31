@@ -33,8 +33,8 @@ G2048.prototype = {
 	},
 	drawCell:function(i,j){
 		/*画一个新格子*/
-		var item = '<div class="number_cell p'+i+j+'" ><div class="number_cell_con n2">'
-		+this.arr[i][j].value+'</div> </div>';		
+		var item = '<div class="number_cell p'+i+j+'" ><div class="number_cell_con n2"><span>'
+		+this.arr[i][j].value+'</span></div> </div>';		
 		$(".g2048").append(item);
 	},
 	addEvent:function(){
@@ -238,14 +238,14 @@ G2048.prototype = {
 		this.arr[i2][j2].value = temp1;
 		this.arr[i1][j1].value = 0;
 		$(".p"+i2+j2).remove();//这个写法不太好
-		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con').html(this.arr[i2][j2].value).addClass('n'+temp1).removeClass('n'+temp);
+		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con').addClass('n'+temp1).removeClass('n'+temp).find('span').html(this.arr[i2][j2].value);
 	},
 	moveCell:function(i1,j1,i2,j2){
 		/*移动格子*/
 		this.arr[i2][j2].value = this.arr[i1][j1].value;
 		this.arr[i1][j1].value = 0;
 		this.moveAble = true;
-		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2).find('.number_cell_con');
+		$(".p"+i1+j1).removeClass("p"+i1+j1).addClass("p"+i2+j2);
 	},
 	checkLose:function(){
 		/*判输*/
