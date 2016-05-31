@@ -76,7 +76,7 @@ G2048.prototype = {
 		this.arr[i][j].oldValue = this.arr[i][j].value;
 		this.arr[i][j].value = num;
 	},
-	newCellValue:function(){
+	newCell:function(){
 		/*在空白处掉下来一个新的格子*/
 		var i,j,len,index;
 		var ableArr = [];
@@ -133,7 +133,7 @@ G2048.prototype = {
 				}
 			}
 		}
-		this.newCellValue();//生成一个新格子。后面要对其做判断。
+		this.newCell();//生成一个新格子。后面要对其做判断。
 	},
 	moveUp:function(){
 		/*向上移动*/
@@ -163,7 +163,7 @@ G2048.prototype = {
 				}
 			}
 		}
-		this.newCellValue();//生成一个新格子。后面要对其做判断。
+		this.newCell();//生成一个新格子。后面要对其做判断。
 	},
 	moveLeft:function(){
 		/*向左移动*/
@@ -194,7 +194,7 @@ G2048.prototype = {
 				}
 			}
 		}
-		this.newCellValue();//生成一个新格子。后面要对其做判断。
+		this.newCell();//生成一个新格子。后面要对其做判断。
 	},
 	moveRight:function(){
 		/*向右移动*/
@@ -226,7 +226,7 @@ G2048.prototype = {
 			}
 		}
 
-		this.newCellValue();//生成一个新格子。后面要对其做判断。
+		this.newCell();//生成一个新格子。后面要对其做判断。
 	},
 	mergeCells:function(i1,j1,i2,j2){
 		/*移动并合并格子*/
