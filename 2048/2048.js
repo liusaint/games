@@ -17,17 +17,15 @@ G2048.prototype = {
 			for (j = 0; j < 4; j++) {
 				this.arr[i][j] = {};
 				this.arr[i][j].value = 0;
-				this.arr[i][j].oldValue = 0;
-				this.arr[i][j].oldi = i;
-				this.arr[i][j].oldj = j;
-				this.arr[i][j].i = i;
-				this.arr[i][j].j = j;
 			}
 		}
-		this.arrValueUpdate(2,0,3);
-		this.arrValueUpdate(2,1,3);
-		this.drawCell(0,3);
-		this.drawCell(1,3);
+
+		//随机生成前两个。
+		var i1=getRandom(3),i2=getRandom(3),j1=getRandom(3),j2=getRandom(3);
+		this.arrValueUpdate(2,i1,j1);
+		this.arrValueUpdate(2,i2,j2);
+		this.drawCell(i1,j1);
+		this.drawCell(i2,j2);
 	},
 	drawCell:function(i,j){
 		/*画一个新格子*/
@@ -103,15 +101,16 @@ G2048.prototype = {
 	},
 	moveDown:function(){
 		/*向下移动*/
-		var i,j,k;
+		var i,j,k,n;
 		for (i = 0; i < 4; i++) {
+			n = 4;
 			for (j = 3; j >= 0; j--) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k = j+1;
 				aa:
-				while(k<4){
+				while(k<n){
 					if(this.arr[i][k].value == 0){
 						if(k == 3 || (this.arr[i][k+1].value!=0 && this.arr[i][k+1].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,i,k);
@@ -121,6 +120,7 @@ G2048.prototype = {
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
 							this.mergeCells(i,j,i,k);
+							n--;
 						}
 						break aa;
 					}
@@ -132,15 +132,16 @@ G2048.prototype = {
 	},
 	moveUp:function(){
 		/*向上移动*/
-		var i,j,k;
+		var i,j,k,n;
 		for (i = 0; i < 4; i++) {
+			n=0;
 			for (j = 0; j < 4; j++) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k = j-1;
 				aa:
-				while(k>=0){
+				while(k>=n){
 					if(this.arr[i][k].value == 0){
 						if(k == 0 || (this.arr[i][k-1].value!=0 && this.arr[i][k-1].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,i,k);
@@ -149,6 +150,7 @@ G2048.prototype = {
 					}else{
 						if(this.arr[i][k].value == this.arr[i][j].value){
 							this.mergeCells(i,j,i,k);
+							n++;
 						}
 						break aa;
 					}
@@ -160,16 +162,17 @@ G2048.prototype = {
 	},
 	moveLeft:function(){
 		/*向左移动*/
-		var i,j,k;
+		var i,j,k,n;
 
 		for (j = 0; j < 4; j++) {
+			n=0;
 			for (i = 0; i < 4; i++) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k=i-1;
 				aa:
-				while(k>=0){
+				while(k>=n){
 					if(this.arr[k][j].value == 0){
 						if(k == 0 || (this.arr[k-1][j].value!=0 && this.arr[k-1][j].value!=this.arr[i][j].value)){
 							this.moveCell(i,j,k,j);
@@ -178,6 +181,7 @@ G2048.prototype = {
 					}else{
 						if(this.arr[k][j].value == this.arr[i][j].value){
 							this.mergeCells(i,j,k,j);
+							n++;
 						}
 						break aa;
 
@@ -189,15 +193,16 @@ G2048.prototype = {
 	},
 	moveRight:function(){
 		/*向右移动*/
-		var i,j,k;
+		var i,j,k,n;
 		for (j = 0; j < 4; j++) {
+			n = 4;
 			for (i = 3; i >= 0; i--) {
 				if(this.arr[i][j].value==0){					
 					continue;
 				}
 				k = i+1;
 				aa:
-				while(k<4){
+				while(k<n){
 					if(this.arr[k][j].value == 0){
 
 						if(k == 3 || (this.arr[k+1][j].value!=0 && this.arr[k+1][j].value!=this.arr[i][j].value)){
@@ -209,6 +214,7 @@ G2048.prototype = {
 					}else{
 						if(this.arr[k][j].value == this.arr[i][j].value){
 							this.mergeCells(i,j,k,j);
+							n--;
 						}
 						break aa;
 
