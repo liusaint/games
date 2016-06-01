@@ -2,7 +2,7 @@ HTML/CSS/JavaScript实现的2048小游戏
 
 说明文章：http://blog.csdn.net/liusaint1992/article/details/51549596
 
-演示地址http://runningls.com/demos/2016/2048/
+演示地址：http://runningls.com/demos/2016/2048/
 
 实现功能：主要实现的功能：
 
