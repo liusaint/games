@@ -2,6 +2,7 @@
 
 演示地址：http://runningls.com/demos/2016/soduku/
 
+说明文章：http://blog.csdn.net/liusaint1992/article/details/51147149
 
 游戏说明：
 
