@@ -407,16 +407,15 @@ var Mine = function  (ele,faceele,panewidth,paneheight,minenum,tagele,timeele) {
 	}
 }
 
-//获取坐标：
-function getEventPosition(ev){   
+//获取坐标：解决canvas在高分屏缩放150%之后坐标计算不准确的问题。
+//https://github.com/zbinlin/blog/blob/master/getting-mouse-position-in-canvas.md
+function getEventPosition(evt){   
 	    var x, y;   
-	    if (ev.layerX || ev.layerX == 0) {   
-		        x = ev.layerX;   
-		        y = ev.layerY;   
-    }else if (ev.offsetX || ev.offsetX == 0) { // Opera   
-	        x = ev.offsetX;   
-	        y = ev.offsetY;   
-    }   
+    var x = evt.clientX;
+    var y = evt.clientY;
+    var rect =  document.getElementById('mine1').getBoundingClientRect();
+    x -= rect.left;
+    y -= rect.top;
     return {x: x, y: y};   
 }
 
